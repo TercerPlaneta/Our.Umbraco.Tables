@@ -18,9 +18,27 @@ function tablesEditorController($scope, $routeParams) {
 	};
 
 	function _addRow() {
+
 		var row = {
 			backgroundColor: 'none'
 		};
+		const customProperties = $scope.model.config.rowsProperties.split(';');
+		if (customProperties) {
+
+			if (customProperties && customProperties.length) {
+
+				customProperties.forEach(prop => {
+					if (prop && prop.length) {
+
+						const { alias, type, label } = JSON.parse(prop);
+
+						if (alias && type && label) {
+							row[alias] = null;
+						}
+					}
+				});
+			}
+		}
 
 		vm.table.rows.push(row);
 
@@ -54,7 +72,7 @@ function tablesEditorController($scope, $routeParams) {
 			var firstCell = vm.table.cells[0];
 			var diffColumns = vm.table.columns.length - firstCell.length;
 
-			console.log(`DiffColumns: ${diffColumns}`);
+			//console.log(`DiffColumns: ${diffColumns}`);
 
 			if (diffColumns < 0) {
 				// remove columns
@@ -83,7 +101,7 @@ function tablesEditorController($scope, $routeParams) {
 			}
 		}
 
-		console.log(vm.table);
+		//console.log(vm.table);
 	}
 
 	function _addNewRows(count) {
@@ -139,11 +157,12 @@ function tablesEditorController($scope, $routeParams) {
 	}
 
 	function _editCell(cell) {
+
 		vm.richTextEditor = {
 			view: "/App_Plugins/Our.Umbraco.Tables/backoffice/views/tables.overlay.view.html",
 			show: true,
 			title: "Edit cell value",
-			prop: {
+			props:[ {
 				alias: "value",
 				label: "",
 				view: "rte",
@@ -184,9 +203,9 @@ function tablesEditorController($scope, $routeParams) {
 					}
 				},
 				value: cell.value
-			},
+			}],
 			submit: function (model) {
-				cell.value = model.prop.value;
+				cell.value = model.props[0].value;
 				vm.richTextEditor.show = false;
 				vm.richTextEditor = null;
 			},
@@ -225,6 +244,7 @@ function tablesEditorController($scope, $routeParams) {
 	}
 
 	function _getRowClass(rowIndex) {
+
 		if (vm.table.settings.backgroundColor !== 'none') {
 			return _getCssClass(vm.table.settings.backgroundColor);
 		}
@@ -261,7 +281,7 @@ function tablesEditorController($scope, $routeParams) {
 		if (!firstCell) {
 			return;
 		}
-
+	
 		_editSettings(vm.table.rows[firstCell.rowIndex]);
 	}
 
@@ -270,7 +290,7 @@ function tablesEditorController($scope, $routeParams) {
 			view: "/App_Plugins/Our.Umbraco.Tables/backoffice/views/tables.overlay.view.html",
 			show: true,
 			title: "Edit table settings",
-			prop: {
+			props: [{
 				alias: "backgroundColour",
 				label: "Table Background Colour",
 				view: "dropdownFlexible",
@@ -278,10 +298,10 @@ function tablesEditorController($scope, $routeParams) {
 					items: tableSettings
 				},
 				value: vm.table.settings.backgroundColor
-			},
+			}],
 			submit: function (model) {
-				console.log(model);
-				vm.table.settings.backgroundColor = model.prop.value[0];
+				//console.log(model);
+				vm.table.settings.backgroundColor = model.props[0].value[0];
 				vm.tableSettingsEditor.show = false;
 				vm.tableSettingsEditor = null;
 			}
@@ -289,22 +309,66 @@ function tablesEditorController($scope, $routeParams) {
 	}
 
 	function _editSettings(settings) {
+		// Rows props
+
+		let settingsEditorProps = {
+			// "backgroundColour": {
+			// 	alias: "backgroundColour",
+			// 	label: "Background Colour",
+			// 	view: "dropdownFlexible",
+			// 	config: {
+			// 		items: rowSettings
+			// 	},
+			// 	value: settings['backgroundColour']
+			// },
+		};
+		const customProperties = $scope.model.config.rowsProperties.split(';');
+		if (customProperties) {
+
+			if (customProperties && customProperties.length) {
+
+				customProperties.forEach(prop => {
+					if (prop && prop.length) {
+
+						const { alias, type, label } = JSON.parse(prop);
+
+						if (alias && type && label) {
+
+							switch (type) {
+								case 'boolean':
+									// Add new prop
+									settingsEditorProps[alias] = {
+										alias,
+										label,
+										view: type,
+										value: Boolean(settings[alias]),
+									};
+
+									break;
+
+								default:
+									break;
+							}
+						}
+					}
+				});
+			}
+		}
+
 		vm.settingsEditor = {
 			view: "/App_Plugins/Our.Umbraco.Tables/backoffice/views/tables.overlay.view.html",
 			show: true,
-			title: "Edit settings",
-			prop: {
-				alias: "backgroundColour",
-				label: "Background Colour",
-				view: "dropdownFlexible",
-				config: {
-					items: rowSettings
-				},
-				value: settings.backgroundColor
-			},
+			title: "Edit row settings",
+			props: settingsEditorProps,
+
 			submit: function (model) {
-				console.log(model);
-				settings.backgroundColor = model.prop.value[0];
+				//console.log(model);
+				Object.keys(settingsEditorProps).forEach(key => {
+					settings[key] =  model.props[key].value;
+				});
+				console.log("model.props", model.props);
+			
+				//settings.backgroundColor = model.prop.value[0];
 				vm.settingsEditor.show = false;
 				vm.settingsEditor = null;
 			}
@@ -314,15 +378,32 @@ function tablesEditorController($scope, $routeParams) {
 	function _loadTable() {
 
 		if ($scope.model.value && $scope.model.value instanceof Object) {
-			console.log($scope.model.value);
+			//console.log($scope.model.value);
 			vm.table = $scope.model.value;
 		}
 	}
 
 	function _save() {
-		console.log('saving', vm.table);
+		//console.log('saving', vm.table);
 		_reIndexCells();
-
+		
+		// let newRowList = [];
+		// vm.table.rows.forEach(row => {
+		// 	const customProperties = $scope.model.config.rowsProperties.split(';').filter(c=> c.length >0);
+		// 	if(customProperties && customProperties.length){
+			 
+		// 		Object.keys(row).forEach(key => {
+		// 			const isCustom = customProperties.find(c=> c.includes(key));
+				
+		// 			if(isCustom && row[key] ){
+		// 				const value =row[key];
+		// 				newRowList.push({key,value });
+		// 			}
+		// 		});
+		// 	}
+		// });
+		// vm.table.rows =newRowList;
+		// console.log("vm.table.rows", vm.table.rows)
 		//save
 		$scope.model.value = vm.table;
 	}
@@ -332,7 +413,6 @@ function tablesEditorController($scope, $routeParams) {
 	}
 
 	function _initTable() {
-		console.log('initTable');
 		vm.table = {
 			rows: [],
 			columns: [],
