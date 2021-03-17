@@ -2,12 +2,22 @@
 	"propertyEditors": [
 		{
 			"alias": "Our.Umbraco.Tables",
-			"name": "Our.Umbraco.Tables",
+			"name": "Our Umbraco Tables",
 			"icon": "icon-grid",
 			"group": "Rich Content",
 			"editor": {
 				"view": "~/App_Plugins/Our.Umbraco.Tables/backoffice/views/tables.editor.view.html",
 				"valueType": "JSON"
+			},
+			"prevalues": {
+				"fields": [
+					{
+						"label": "Rows Properties",
+						"description": "objects separated by ';' i.e: {alias:isFooter, label:'Is Footer', type:'boolean'} ",
+						"key": "rowsProperties",
+						"view": "textArea"
+					}
+				]
 			}
 		}
 	],

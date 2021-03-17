@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Enums\BackgroundColour.cs" />
     <Compile Include="Models\CellData.cs" />
+    <Compile Include="Models\RowSettings.cs" />
     <Compile Include="Models\StyleData.cs" />
     <Compile Include="Models\TableData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
