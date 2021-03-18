@@ -1,6 +1,10 @@
-function tablesOverlayController($scope, tinyMceService)
+function tablesOverlayController($scope)
 {
-	console.log("Table Overlay", $scope.model);
+	$scope.save = function() {
+        $scope.$broadcast("formSubmitting", { scope: $scope });
+		console.log("$scope",$scope.model);
+        $scope.model.submit($scope.model);
+    }
 }
 
 angular.module("umbraco").controller("Our.Umbraco.Tables.BackOffice.Overlay.Controller", tablesOverlayController);

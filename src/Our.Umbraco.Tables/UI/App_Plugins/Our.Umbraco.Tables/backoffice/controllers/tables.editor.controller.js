@@ -1,4 +1,4 @@
-function tablesEditorController($scope, $routeParams) {
+function tablesEditorController($scope, $routeParams, editorService) {
 	var vm = this;
 
 	var rowSettings = {
@@ -156,13 +156,13 @@ function tablesEditorController($scope, $routeParams) {
 		_reIndexCells();
 	}
 
-	function _editCell(cell) {
 
-		vm.richTextEditor = {
+	function _editCell(cell) {
+		var options = {
 			view: "/App_Plugins/Our.Umbraco.Tables/backoffice/views/tables.overlay.view.html",
-			show: true,
 			title: "Edit cell value",
-			props:[ {
+			size: "small",
+			props: [{
 				alias: "value",
 				label: "",
 				view: "rte",
@@ -205,17 +205,18 @@ function tablesEditorController($scope, $routeParams) {
 				value: cell.value
 			}],
 			submit: function (model) {
+				console.log("model", model);
 				cell.value = model.props[0].value;
-				vm.richTextEditor.show = false;
-				vm.richTextEditor = null;
+				editorService.close();
 			},
 			close: function (model) {
-				vm.richTextEditor.show = false;
-				vm.richTextEditor = null;
-            },
+				console.log("close", model);
+				editorService.close();
+			},
 			error: function (error) {
 			}
 		};
+		editorService.open(options);
 	}
 
 	function _getCssClass(backgroundColour) {
@@ -281,15 +282,15 @@ function tablesEditorController($scope, $routeParams) {
 		if (!firstCell) {
 			return;
 		}
-	
+
 		_editSettings(vm.table.rows[firstCell.rowIndex]);
 	}
 
 	function _editTableSettings() {
-		vm.tableSettingsEditor = {
+		var options = {
 			view: "/App_Plugins/Our.Umbraco.Tables/backoffice/views/tables.overlay.view.html",
-			show: true,
 			title: "Edit table settings",
+			size: "small",
 			props: [{
 				alias: "backgroundColour",
 				label: "Table Background Colour",
@@ -300,17 +301,18 @@ function tablesEditorController($scope, $routeParams) {
 				value: vm.table.settings.backgroundColor
 			}],
 			submit: function (model) {
-				//console.log(model);
+				console.log(model);
 				vm.table.settings.backgroundColor = model.props[0].value[0];
-				vm.tableSettingsEditor.show = false;
-				vm.tableSettingsEditor = null;
+				editorService.close();
+			},
+			close: function () {
+				editorService.close();
 			}
 		};
+		editorService.open(options);
 	}
 
 	function _editSettings(settings) {
-		// Rows props
-
 		let settingsEditorProps = {
 			// "backgroundColour": {
 			// 	alias: "backgroundColour",
@@ -341,7 +343,7 @@ function tablesEditorController($scope, $routeParams) {
 										alias,
 										label,
 										view: type,
-										value: Boolean(settings[alias]),
+										value: settings[alias],
 									};
 
 									break;
@@ -355,24 +357,22 @@ function tablesEditorController($scope, $routeParams) {
 			}
 		}
 
-		vm.settingsEditor = {
+		var options = {
 			view: "/App_Plugins/Our.Umbraco.Tables/backoffice/views/tables.overlay.view.html",
-			show: true,
-			title: "Edit row settings",
+			title: "Edit settings",
+			size: "small",
 			props: settingsEditorProps,
-
 			submit: function (model) {
-				//console.log(model);
 				Object.keys(settingsEditorProps).forEach(key => {
-					settings[key] =  model.props[key].value;
+					settings[key] = model.props[key].value;
 				});
-				console.log("model.props", model.props);
-			
-				//settings.backgroundColor = model.prop.value[0];
-				vm.settingsEditor.show = false;
-				vm.settingsEditor = null;
+				editorService.close();
+			},
+			close: function () {
+				editorService.close();
 			}
 		};
+		editorService.open(options);
 	}
 
 	function _loadTable() {
@@ -384,27 +384,8 @@ function tablesEditorController($scope, $routeParams) {
 	}
 
 	function _save() {
-		//console.log('saving', vm.table);
 		_reIndexCells();
-		
-		// let newRowList = [];
-		// vm.table.rows.forEach(row => {
-		// 	const customProperties = $scope.model.config.rowsProperties.split(';').filter(c=> c.length >0);
-		// 	if(customProperties && customProperties.length){
-			 
-		// 		Object.keys(row).forEach(key => {
-		// 			const isCustom = customProperties.find(c=> c.includes(key));
-				
-		// 			if(isCustom && row[key] ){
-		// 				const value =row[key];
-		// 				newRowList.push({key,value });
-		// 			}
-		// 		});
-		// 	}
-		// });
-		// vm.table.rows =newRowList;
-		// console.log("vm.table.rows", vm.table.rows)
-		//save
+		//Save
 		$scope.model.value = vm.table;
 	}
 
