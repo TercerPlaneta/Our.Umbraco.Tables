@@ -165,37 +165,9 @@ function tablesEditorController($scope, $routeParams, editorService) {
 			props: [{
 				alias: "value",
 				label: "",
-				view: "rte",
+				view: "textarea",
 				config: {
 					editor: {
-						toolbar: [
-							"ace",
-							//	"removeformat",
-							"styleselect",
-							"bold",
-							"italic",
-							//	"underline",
-							//	"strikethrough",
-							"alignleft",
-							"aligncenter",
-							"alignright",
-							//	"alignjustify",
-							"bullist",
-							"numlist",
-							//	"outdent",
-							//	"indent",
-							"link",
-							//	"unlink",
-							"umbmediapicker",
-							//	"umbmacro",
-							//	"umbembeddialog",
-							//	"hr",
-							//	"subscript",
-							//	"superscript",
-							//	"charmap",
-							//	"rtl",
-							//	"ltr"
-						],
 						dimensions: {
 							height: 500,
 							width: 0
