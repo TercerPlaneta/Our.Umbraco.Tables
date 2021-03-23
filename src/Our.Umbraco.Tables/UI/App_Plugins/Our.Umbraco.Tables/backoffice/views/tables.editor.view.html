@@ -33,13 +33,13 @@
 				<!--Column controls-->
 				<div class="controls">
 
-					<div class="controls__control" ng-repeat="column in vm.table.columns" ng-show="false">
+					<div class="controls__control" ng-repeat="column in vm.table.columns" >
 
 						<a class="control__button btn">
 							<i class="icon icon-trash" ng-click="removeColumn($index)"></i>
 						</a>
 
-						<a class="control__button btn" ng-if="showRowAndColumnSettings()">
+						<a class="control__button btn" ng-if="showRowAndColumnSettings()" ng-show="false" >
 							<i class="icon icon-settings" ng-click="editSettings(column)"></i>
 						</a>
 
