@@ -43,9 +43,11 @@
     <Compile Include="PropertyValueConverter\TablesPropertyValueConverter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="AngleSharp, Version=0.9.9.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\AngleSharp.0.9.11\lib\net45\AngleSharp.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="AngleSharp, Version=0.14.0.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\AngleSharp.0.14.0\lib\net472\AngleSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="AngleSharp.Css, Version=0.14.2.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\AngleSharp.Css.0.14.2\lib\net472\AngleSharp.Css.dll</HintPath>
     </Reference>
     <Reference Include="ClientDependency.Core, Version=1.9.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\ClientDependency.1.9.9\lib\net45\ClientDependency.Core.dll</HintPath>
@@ -56,15 +58,14 @@
     <Reference Include="CSharpTest.Net.Collections, Version=14.906.1403.1082, Culture=neutral, PublicKeyToken=06aee00cce822474, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\CSharpTest.Net.Collections.14.906.1403.1082\lib\net40\CSharpTest.Net.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Examine, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Examine.1.0.2\lib\net452\Examine.dll</HintPath>
+    <Reference Include="Examine, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Examine.1.1.0\lib\net452\Examine.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.8.14.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\HtmlAgilityPack.1.8.14\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlSanitizer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=61c49a1a9e79cc28, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\HtmlSanitizer.4.0.217\lib\net45\HtmlSanitizer.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="HtmlSanitizer, Version=5.0.0.0, Culture=neutral, PublicKeyToken=61c49a1a9e79cc28, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\HtmlSanitizer.5.0.376\lib\net46\HtmlSanitizer.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -204,8 +205,14 @@
     </Reference>
     <Reference Include="System.Runtime, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encoding.CodePages, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Text.Encoding.CodePages.4.5.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
     <Reference Include="System.Threading.Tasks, Version=4.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.Threading.Tasks.Dataflow.4.9.0\lib\netstandard2.0\System.Threading.Tasks.Dataflow.dll</HintPath>
@@ -242,24 +249,19 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Umbraco.Core, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\UmbracoCms.Core.8.10.2\lib\net472\Umbraco.Core.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\packages\UmbracoCms.Core.8.12.2\lib\net472\Umbraco.Core.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Examine, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\UmbracoCms.Web.8.10.2\lib\net472\Umbraco.Examine.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\packages\UmbracoCms.Web.8.12.2\lib\net472\Umbraco.Examine.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.ModelsBuilder.Embedded, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\UmbracoCms.Web.8.10.2\lib\net472\Umbraco.ModelsBuilder.Embedded.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\packages\UmbracoCms.Web.8.12.2\lib\net472\Umbraco.ModelsBuilder.Embedded.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Web, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\UmbracoCms.Web.8.10.2\lib\net472\Umbraco.Web.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\packages\UmbracoCms.Web.8.12.2\lib\net472\Umbraco.Web.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Web.UI, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\UmbracoCms.Web.8.10.2\lib\net472\Umbraco.Web.UI.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\packages\UmbracoCms.Web.8.12.2\lib\net472\Umbraco.Web.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
